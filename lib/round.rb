@@ -36,11 +36,9 @@ class Round
     @correct_by_category[category]
   end
 
-
-
-
-
-
+  def percent_correct
+    (@number_correct.to_f / @card_count)*100.round(0)
+  end
 
 
 
