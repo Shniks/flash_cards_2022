@@ -6,6 +6,7 @@ class Round
   attr_reader :deck,
               :turns,
               :number_correct,
+              :number_by_category,
               :correct_by_category,
               :card_count
 
@@ -14,6 +15,7 @@ class Round
     @turns = []
     @card_count = 0
     @number_correct = 0
+    @number_by_category = Hash.new(0)
     @correct_by_category = Hash.new(0)
   end
 
@@ -28,6 +30,7 @@ class Round
       @number_correct += 1
       @correct_by_category[current_card.category] += 1
     end
+    @number_by_category[current_card.category] += 1
     @card_count += 1
     turn
   end
@@ -40,8 +43,8 @@ class Round
     (@number_correct.to_f / @card_count)*100.round(0)
   end
 
-
-
-
+  def percent_correct_by_category(category)
+    (@correct_by_category[category].to_f / @number_by_category[category])*100.round(0)
+  end
 
 end
