@@ -24,16 +24,10 @@ class CardGeneratorTest < Minitest::Test
     cards =  card_generator.cards
 
     assert_equal 4, cards.count
-    assert_equal "What is 5 + 5?,10,STEM", cards[0]
+    assert_instance_of Card, cards[0]
+    assert_equal "10", cards[0].answer
+    assert_equal "STEM", cards[0].category
+    assert_equal "What is 5 + 5?", cards[0].question
   end
-
-
-
-
-
-
-
-
-
 
 end
