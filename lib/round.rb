@@ -17,6 +17,11 @@ class Round
     deck.cards[card_count]
   end
 
+  def take_turn(guess)
+    Turn.new(guess, current_card)
+  end
+
+
 
 
 
