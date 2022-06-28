@@ -26,7 +26,7 @@ class Round
   def take_turn(guess)
     turn =  Turn.new(guess, current_card)
     @turns << turn
-    if turn.guess == current_card.answer
+    if turn.correct? == true
       @number_correct += 1
       @correct_by_category[current_card.category] += 1
     end
@@ -50,9 +50,11 @@ class Round
 #========= For runner file =====================
 
   def start
+    system "clear"
     puts "Welcome to Flashcards\n_____________________\n\n"
     puts "You are playing with #{deck.count} cards.\n\n"
     question_and_guess
+    game_over
   end
 
   def question_and_guess
@@ -69,8 +71,21 @@ class Round
     puts turns.last.feedback + "\n\n"
   end
 
+  def game_over
+    puts "****** Game Over! ******\n\n"
+    score
+  end
 
+  def score
+    puts "You had #{@number_correct} correct guesses out of #{deck.count} for a total score of #{percent_correct}%.\n"
+    print_by_category
+  end
 
-
+  def print_by_category
+    categories = deck.cards.map { |card| card.category }
+    categories.uniq.each do |category|
+      puts "#{category} - #{percent_correct_by_category(category)}% correct\n"
+    end
+  end
 
 end
